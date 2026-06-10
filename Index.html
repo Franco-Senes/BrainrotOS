@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainrotOS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="pill left">BrainrotOS</div>
+        <div class="pill center">Tlung Tlung Tahur</div>
+        <div class="pill right" id="datetime">--/--/---- --:-- --</div>
+    </div>
+
+    <div class="desktop">
+        <div class="desktop-icons">
+            <div class="desktop-icon" onclick="openWindow('welcome-window')">
+                <div class="desktop-icon-img"><i class="fa-solid fa-crown" style="color: #fbbf24;"></i></div>
+                <div class="desktop-icon-label">welcome</div>
+            </div>
+            <div class="desktop-icon" onclick="openWindow('clicker-window')">
+                <div class="desktop-icon-img"><img src="https://i.ibb.co/5ZnKTnG/avatar-sigmarizer.png" alt="clicker" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;"></div>
+                <div class="desktop-icon-label">Paloma Clicker yeah..</div>
+            </div>
+            <div class="desktop-icon" onclick="openWindow('zero-window')">
+                <div class="desktop-icon-img"><img src="https://i.ibb.co/pjcnfmSs/0-removebg-preview.png" alt="zero"
+                        style="width: 32px; height: 32px; object-fit: contain;"></div>
+                <div class="desktop-icon-label">zero</div>
+            </div>
+            <div class="desktop-icon" onclick="openWindow('weather-window')">
+                <div class="desktop-icon-img"><i class="fa-solid fa-cloud-sun" style="color: #f59e0b;"></i></div>
+                <div class="desktop-icon-label">weather</div>
+            </div>
+        </div>
+
+        <div class="window" id="welcome-window">
+            <div class="window-header">
+                <div class="window-controls">
+                    <button class="control-dot dot-close" onclick="closeWindow('welcome-window')"></button>
+                    <button class="control-dot dot-minimize" onclick="minimizeWindow('welcome-window')"></button>
+                    <button class="control-dot dot-maximize" onclick="maximizeWindow('welcome-window')"></button>
+                </div>
+                <div class="window-title">Welcome</div>
+            </div>
+            <div class="window-body">
+                <div class="inner-panel">
+                    <div class="panel-header">
+                        <img class="avatar" src="https://i.ibb.co/5ZnKTnG/avatar-sigmarizer.png" alt="Avatar">
+                        <div>
+                            <h1 class="panel-title">brainrotOS</h1>
+                            <p class="panel-subtitle">The ultimate web OS for maximum sigma grindset</p>
+                        </div>
+                    </div>
+
+                    <div class="specs-grid">
+                        <div class="spec-card">
+                            <span class="spec-label"><i class="fa-solid fa-user text-blue"
+                                    style="margin-right: 4px;"></i> User Status</span>
+                            <span class="spec-value">Guest Rizzler</span>
+                        </div>
+                        <div class="spec-card">
+                            <span class="spec-label"><i class="fa-solid fa-sparkles text-gold"
+                                    style="margin-right: 4px;"></i> Aura Points</span>
+                            <span class="spec-value text-gold" id="aura-points">+9,999,999 <i
+                                    class="fa-solid fa-sparkles text-gold"></i></span>
+                        </div>
+                        <div class="spec-card">
+                            <span class="spec-label"><i class="fa-solid fa-comment-slash text-purple"
+                                    style="margin-right: 4px;"></i> Mewing Streak</span>
+                            <span class="spec-value" id="mew-streak"><i class="fa-solid fa-comment-slash text-purple"
+                                    style="margin-right: 4px;"></i> 420 Days</span>
+                        </div>
+                        <div class="spec-card">
+                            <span class="spec-label"><i class="fa-solid fa-crown text-purple"
+                                    style="margin-right: 4px;"></i> Skibidi Rank</span>
+                            <span class="spec-value text-purple">Sigma Male</span>
+                        </div>
+                        <div class="spec-card">
+                            <span class="spec-label"><i class="fa-solid fa-trophy text-blue"
+                                    style="margin-right: 4px;"></i> Gyatt Level</span>
+                            <span class="spec-value">Level 5 (Max)</span>
+                        </div>
+                        <div class="spec-card">
+                            <span class="spec-label"><i class="fa-solid fa-fire text-gold"
+                                    style="margin-right: 4px;"></i> Rizz Quotient</span>
+                            <span class="spec-value text-blue">W Rizz 100%</span>
+                        </div>
+                    </div>
+
+                    <div class="brainrot-box">
+                        <span class="brainrot-box-icon"><i class="fa-solid fa-triangle-exclamation text-purple"
+                                style="font-size: 20px;"></i></span>
+                        <div>
+                            <strong>Attention Sigma:</strong> Mewing is mandatory while operating this computer. Cringe
+                            behaviors will trigger a 50% Fanum Tax.
+                        </div>
+                    </div>
+
+                    <button class="btn-action" onclick="claimAura()">Claim Aura (+100) <i
+                            class="fa-solid fa-sparkles"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="window" id="clicker-window" style="display: none; width: 320px;">
+            <div class="window-header">
+                <div class="window-controls">
+                    <button class="control-dot dot-close" onclick="closeWindow('clicker-window')"></button>
+                    <button class="control-dot dot-minimize" onclick="minimizeWindow('clicker-window')"></button>
+                    <button class="control-dot dot-maximize" onclick="maximizeWindow('clicker-window')"></button>
+                </div>
+                <div class="window-title">Tung Tung Clicker</div>
+            </div>
+            <div class="window-body">
+                <div class="inner-panel clicker-panel">
+                    <div class="clicker-layout">
+                        <div class="clicker-main">
+                            <div class="score-container">
+                                <span class="score-label">Sahur Points</span>
+                                <span class="score-value" id="clicker-score">0</span>
+                            </div>
+                            <div class="click-target-container">
+                                <img id="clicker-target" class="clicker-image"
+                                    src="https://i.ibb.co/5ZnKTnG/avatar-sigmarizer.png" alt="Tung Tung Sahur"
+                                    onclick="clickTarget(event)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="window" id="zero-window" style="display: none; width: 800px; height: 550px;">
+            <div class="window-header">
+                <div class="window-controls">
+                    <button class="control-dot dot-close" onclick="closeWindow('zero-window')"></button>
+                    <button class="control-dot dot-minimize" onclick="minimizeWindow('zero-window')"></button>
+                    <button class="control-dot dot-maximize" onclick="maximizeWindow('zero-window')"></button>
+                </div>
+                <div class="window-title">zero</div>
+            </div>
+            <div class="window-body" style="flex: 1; padding: 12px; box-sizing: border-box; height: calc(100% - 38px);">
+                <div class="iframe-container"
+                    style="width: 100%; height: 100%; border-radius: 12px; overflow: hidden; background: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                    <iframe class="portfolio-iframe" src="https://zero.info.bo/"
+                        style="width: 100%; height: 100%; border: none; display: block;"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="window" id="weather-window" style="display: none; width: 480px; height: 400px;">
+            <div class="window-header">
+                <div class="window-controls">
+                    <button class="control-dot dot-close" onclick="closeWindow('weather-window')"></button>
+                    <button class="control-dot dot-minimize" onclick="minimizeWindow('weather-window')"></button>
+                    <button class="control-dot dot-maximize" onclick="maximizeWindow('weather-window')"></button>
+                </div>
+                <div class="window-title">Weather</div>
+            </div>
+            <div class="window-body">
+                <div class="weather-panel">
+                    <div class="weather-header">
+                        <div class="weather-select-wrapper">
+                            <i class="fa-solid fa-location-dot" style="font-size: 14px; color: #38bdf8;"></i>
+                            <select id="weather-city-select" class="weather-select"
+                                onchange="handleCityChange(this.value)">
+                                <option value="santacruz">Santa Cruz de la Sierra</option>
+                                <option value="lapaz">La Paz</option>
+                                <option value="newyork">New York</option>
+                                <option value="london">London</option>
+                                <option value="tokyo">Tokyo</option>
+                            </select>
+                        </div>
+                        <button id="weather-unit-toggle" class="weather-toggle-btn" onclick="toggleWeatherUnit()">Show
+                            in °F</button>
+                    </div>
+
+                    <div class="weather-main">
+                        <div class="weather-main-left">
+                            <div id="weather-city" class="weather-city-name">Santa Cruz de la Sierra</div>
+                            <div id="weather-desc" class="weather-condition">Warm and Sunny</div>
+                            <div id="weather-temp" class="weather-temp">28°C</div>
+                        </div>
+                        <i id="weather-icon" class="weather-main-icon fa-solid fa-sun"></i>
+                    </div>
+
+                    <div class="weather-details-grid">
+                        <div class="weather-detail-card">
+                            <span class="weather-detail-icon"><i class="fa-solid fa-droplet"></i></span>
+                            <span class="weather-detail-label">Humidity</span>
+                            <span id="weather-humidity" class="weather-detail-value">65%</span>
+                        </div>
+                        <div class="weather-detail-card">
+                            <span class="weather-detail-icon"><i class="fa-solid fa-wind"></i></span>
+                            <span class="weather-detail-label">Wind</span>
+                            <span id="weather-wind" class="weather-detail-value">14 km/h</span>
+                        </div>
+                        <div class="weather-detail-card">
+                            <span class="weather-detail-icon"><i class="fa-solid fa-sun"></i></span>
+                            <span class="weather-detail-label">UV Index</span>
+                            <span id="weather-uv" class="weather-detail-value">9 (Very High)</span>
+                        </div>
+                    </div>
+
+                    <div class="weather-forecast-container">
+                        <span class="weather-forecast-title">3-Day Forecast</span>
+                        <div id="weather-forecast-grid" class="weather-forecast-grid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
