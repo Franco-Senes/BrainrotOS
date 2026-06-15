@@ -14,12 +14,12 @@ A brainrot os yeah this was the worst thing i made this year so far......
 
 ## Tech Stack
 
-- **Markup**: html5 i mean duh
-- **Styles**: css i mean duh
-- **Logic**: javascript i mean duh
+- **Html**
+- **Css**
+- **JS**
 
 ## Getting Started
-
-Open `Index.html` in any browser or just open it in the code pen [here](https://codepen.io/Franc0-dev/pen/QwdNyyL).
+Clone the bot and then open `Index.html` in any browser or just open it in the code pen [here](https://codepen.io/Franc0-dev/pen/QwdNyyL).
 
 #### zero.info.bo
+

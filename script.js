@@ -47,23 +47,49 @@ function updateClickerUI() {
 let highestZ = 10;
 
 function makeDraggable(win) {
-    win.querySelector('.window-header').onmousedown = e => {
-        if (e.target.classList.contains('control-dot')) return;
+    const header = win.querySelector('.window-header');
+    if (!header) return;
+
+    win.dataset.x = win.dataset.x || "0";
+    win.dataset.y = win.dataset.y || "0";
+
+    header.onmousedown = e => {
+        if (e.target.classList.contains('control-dot') || e.target.closest('.control-dot')) return;
         e.preventDefault();
         focusWindow(win);
+
+        if (win.classList.contains('maximized')) return;
+
         document.body.classList.add('dragging');
-        let x = e.clientX, y = e.clientY;
-        document.onmousemove = e => {
-            if (win.classList.contains('maximized')) return;
-            const top = win.offsetTop + e.clientY - y;
-            win.style.top = `${top < 0 ? 0 : top}px`;
-            win.style.left = `${win.offsetLeft + e.clientX - x}px`;
-            x = e.clientX; y = e.clientY;
-        };
-        document.onmouseup = () => {
+
+        let startX = e.clientX;
+        let startY = e.clientY;
+        let initialX = parseFloat(win.dataset.x);
+        let initialY = parseFloat(win.dataset.y);
+
+        function onMouseMove(moveEvent) {
+            const deltaX = moveEvent.clientX - startX;
+            const deltaY = moveEvent.clientY - startY;
+
+            let newX = initialX + deltaX;
+            let newY = initialY + deltaY;
+
+            if (newY < 0) newY = 0;
+
+            win.dataset.x = newX;
+            win.dataset.y = newY;
+
+            win.style.transform = `translate3d(${newX}px, ${newY}px, 0px)`;
+        }
+
+        function onMouseUp() {
             document.body.classList.remove('dragging');
-            document.onmousemove = document.onmouseup = null;
-        };
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+
+        document.addEventListener('mousemove', onMouseMove, { passive: true });
+        document.addEventListener('mouseup', onMouseUp);
     };
 }
 
@@ -77,21 +103,26 @@ function closeWindow(id) {
     win.classList.remove('show');
     setTimeout(() => {
         win.style.display = 'none';
-    }, 250);
+    }, 200);
 }
 
 function openWindow(id) {
     const win = document.getElementById(id);
     win.style.display = 'flex';
     focusWindow(win);
-    setTimeout(() => {
+    requestAnimationFrame(() => {
         win.classList.add('show');
-    }, 10);
+    });
 }
 
 function maximizeWindow(id) {
     const win = document.getElementById(id);
     win.classList.toggle('maximized');
+    if (win.classList.contains('maximized')) {
+        win.style.transform = 'none';
+    } else {
+        win.style.transform = `translate3d(${win.dataset.x}px, ${win.dataset.y}px, 0px)`;
+    }
 }
 
 function minimizeWindow(id) {
@@ -143,7 +174,7 @@ let currentWeatherState = null;
 function fetchWeatherData(cityKey) {
     currentCityKey = cityKey;
     const coords = citiesCoords[cityKey];
-    
+
     document.getElementById('weather-city').textContent = coords.name;
     document.getElementById('weather-desc').textContent = 'Loading...';
     document.getElementById('weather-temp').textContent = '--';
@@ -158,7 +189,7 @@ function fetchWeatherData(cityKey) {
         .then(data => {
             const currentWmo = getWMOInfo(data.current.weather_code);
             const uvMax = data.daily.uv_index_max[0];
-            
+
             const forecastList = [];
             for (let i = 1; i <= 3; i++) {
                 const foreWmo = getWMOInfo(data.daily.weather_code[i]);
@@ -180,7 +211,7 @@ function fetchWeatherData(cityKey) {
                 uv: getUVLabel(uvMax),
                 forecast: forecastList
             };
-            
+
             updateWeatherUI();
         })
         .catch(() => {
@@ -246,9 +277,14 @@ windows.forEach(win => {
 });
 
 function centerWindow(win) {
+    if (win.classList.contains('maximized')) return;
     const desktop = document.querySelector('.desktop');
-    win.style.left = `${(desktop.clientWidth - win.clientWidth) / 2}px`;
-    win.style.top = `${(desktop.clientHeight - win.clientHeight) / 2}px`;
+    const computedX = (desktop.clientWidth - win.clientWidth) / 2;
+    const computedY = (desktop.clientHeight - win.clientHeight) / 2;
+
+    win.dataset.x = computedX;
+    win.dataset.y = computedY;
+    win.style.transform = `translate3d(${computedX}px, ${computedY}px, 0px)`;
 }
 
 fetchWeatherData('santacruz');
